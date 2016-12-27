@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">graphe_donnees_reseau_capteurs</string>
+    <string name="some_text">some_text</string>
+    <string name="some_hint">some_hint</string>
+</resources>
