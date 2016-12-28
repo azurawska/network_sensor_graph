@@ -25,11 +25,15 @@ public class CapteurDbAdapter {
     public final static String DEVIATION_FACTOR="DEVIATION_FACTOR";
     public final static String CPU="CPU";
 
+    public final static String id_liaison="_id";
+    public final static String id_emetteur="id_emetteur";
+    public static final String id_receveur="id_receveur";
+
     private final static String TAG = "CapteurDbAdapter";
 
-    private final static String TABLE_NAME="capteur";
+    private final static String TABLE_NAME_capteur="capteur";
 
-    private final static String CREATE_TABLE_CAPTEUR = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
+    private final static String CREATE_TABLE_CAPTEUR = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_capteur + " ("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + x + " REAL NOT NULL,"
             + y + " REAL NOT NULL,"
@@ -41,7 +45,18 @@ public class CapteurDbAdapter {
             + CPU + " REAL NOT NULL" +
             ");";
 
-    private final static String DROP_TABLE_CAPTEUR = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    private final static String DROP_TABLE_CAPTEUR = "DROP TABLE IF EXISTS " + TABLE_NAME_capteur;
+
+    private final static String TABLE_NAME_liaison="liaison";
+
+    private final static String CREATE_TABLE_LIAISON = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_liaison + " ("
+            + id_liaison + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + id_emetteur + " INTEGER, "
+            + id_receveur + " INTEGER, "
+            + "FOREIGN KEY("+id_emetteur+") REFERENCES " + TABLE_NAME_capteur+"("+ID+"), "
+            + "FOREIGN KEY("+id_receveur+") REFERENCES " + TABLE_NAME_capteur+"("+ID+"));";
+
+    private final static String DROP_TABLE_LAISION = "DROP TABLE IF EXISTS " + TABLE_NAME_liaison;
 
     private final static int VERSION=1;
 
@@ -62,7 +77,7 @@ public class CapteurDbAdapter {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             Log.w(TAG, CREATE_TABLE_CAPTEUR);
             sqLiteDatabase.execSQL(CREATE_TABLE_CAPTEUR);
-
+            sqLiteDatabase.execSQL(CREATE_TABLE_LIAISON);
         }
 
         @Override
@@ -70,6 +85,7 @@ public class CapteurDbAdapter {
 
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                             + newVersion + ", which will destroy all old data");
+            sqLiteDatabase.execSQL(DROP_TABLE_LAISION);
             sqLiteDatabase.execSQL(DROP_TABLE_CAPTEUR);
             onCreate(sqLiteDatabase);
         }
@@ -108,7 +124,16 @@ public class CapteurDbAdapter {
 
     public Cursor selectionnerCapteurs() {
 
-        Cursor mCursor = db.query(TABLE_NAME, new String[]{ID, x, y, z, RIME_ADRESS, IP_ADRESS, TIME_, DEVIATION_FACTOR, CPU}, null, null, null, null, null);
+        Cursor mCursor = db.query(TABLE_NAME_capteur, new String[]{ID, x, y, z, RIME_ADRESS, IP_ADRESS, TIME_, DEVIATION_FACTOR, CPU}, null, null, null, null, null);
+
+        if(mCursor!=null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    public Cursor selectionnerLaisonsCapteurs() {
+        Cursor mCursor = db.query(TABLE_NAME_liaison, new String[]{id_liaison, id_emetteur, id_receveur}, null, null, null, null, null);
 
         if(mCursor!=null) {
             mCursor.moveToFirst();
@@ -127,12 +152,22 @@ public class CapteurDbAdapter {
         values.put(TIME_, time);
         values.put(DEVIATION_FACTOR, deviationFactor);
         values.put(CPU, cpu);
-        db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME_capteur, null, values);
     }
 
-    public void creerTableCapteur() {
+    public void ajouterLiaison(String idLiaison, String idEmetteur, String idReceveur) {
+        ContentValues values = new ContentValues();
+        values.put(id_liaison, idLiaison);
+        values.put(id_emetteur, idEmetteur);
+        values.put(id_receveur, idReceveur);
+        db.insert(TABLE_NAME_liaison, null, values);
+    }
 
+    public void creerTables(){
+
+        db.execSQL(DROP_TABLE_LAISION);
         db.execSQL(DROP_TABLE_CAPTEUR);
         db.execSQL(CREATE_TABLE_CAPTEUR);
+        db.execSQL(CREATE_TABLE_LIAISON);
     }
 }
