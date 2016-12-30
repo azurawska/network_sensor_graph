@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Layout définissant la liste des attributs des capteurs à afficher, ainsi que les espaces d'écritures des valeurs juste après les deux points. Ces espaces sont définis après les différents champs représentant les noms des attributs. -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -292,6 +295,6 @@
 
         android:text="TextView" />
 
-    <include layout="@layout/layout_liaison_capteurs"/>
+    <!--<include layout="@layout/layout_liaison_capteurs"/>-->
 
 </RelativeLayout>

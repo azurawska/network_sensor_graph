@@ -12,10 +12,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" /> <!--Permet de définir l'activité principale lors du lancement de l'application.-->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".AffichageLiaisonCapteurs"> <!--Permet de mapper la nouvelle view à afficher après le clic du bouton pour afficher les liaisons.-->
+
         </activity>
     </application>
 

@@ -9,13 +9,13 @@
         android:text="" android:textSize="20sp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:text="Voir les liaisons entre capteurs"/> <!--Bouton permettant d'accéder aux liaisons entre capteurs.-->
+        android:text="Voir les données des capteurs"/> <!--Bouton à cliquer pour afficher les données des capteurs.-->
 
-    <ListView android:id="@+id/listView1" android:layout_width="fill_parent"
-        android:layout_height="fill_parent" /> <!--Liste permettant d'afficher les données pour chaque capteur.-->
+    <ListView android:id="@+id/listView2" android:layout_width="fill_parent"
+        android:layout_height="fill_parent" /> <!--Liste permettant d'afficher les liaisons des capteurs.-->
 
 </LinearLayout>
