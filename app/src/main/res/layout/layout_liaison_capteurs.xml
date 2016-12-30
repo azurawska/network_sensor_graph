@@ -4,8 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="6dip">
-
-    <include layout="@layout/layout_capteur_infos"/>
     
     <TextView
         android:id="@+id/textView10"

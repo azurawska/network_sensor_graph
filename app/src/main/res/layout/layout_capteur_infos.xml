@@ -292,4 +292,6 @@
 
         android:text="TextView" />
 
+    <include layout="@layout/layout_liaison_capteurs"/>
+
 </RelativeLayout>

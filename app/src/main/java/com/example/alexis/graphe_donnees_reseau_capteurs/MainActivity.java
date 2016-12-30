@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 
         int[] to_liaison = new int[]{R.id.Id_liaison, R.id.id_emetteur, R.id.id_recepteur};
 
-        dataAdapter_capteur = new SimpleCursorAdapter(this, R.layout.layout_liaison_capteurs,
+        dataAdapter_capteur = new SimpleCursorAdapter(this, R.layout.layout_capteur_infos,
                 cursor_capteur, columns_capteur, to_capteur, 0);
 
         dataAdapter_liaison = new SimpleCursorAdapter(this, R.layout.layout_liaison_capteurs,
